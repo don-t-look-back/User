@@ -36,7 +36,7 @@ jobs:
         shell: bash
 
       - name: Build API Docker image
-        run: docker build --file Dockerfile-api --platform linux/amd64 -t ${DOCKER_HUB_USERNAME}/dlb-user:latest .
+        run: docker build --file Dockerfile --platform linux/amd64 -t ${DOCKER_HUB_USERNAME}/dlb-user:latest .
 
       - name: Push API Docker image to Docker Hub
         run: |
