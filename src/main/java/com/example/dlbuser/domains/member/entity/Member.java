@@ -26,6 +26,7 @@ public class Member {
 
     private String memberId;
 
+
     private String memberPassword;
 
     @CreatedDate
