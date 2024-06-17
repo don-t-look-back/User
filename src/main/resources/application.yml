@@ -1,0 +1,28 @@
+spring:
+  config:
+    activate:
+      on-profile: ["local", "dev"]
+
+  datasource:
+    url: jdbc:mysql://dlb-main-db.cts8su2ooplq.ap-northeast-2.rds.amazonaws.com:3306/user
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: dlb
+    password: dlb2024!!
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate
+
+  mvc:
+    pathmatch:
+      # swagger
+      matching-strategy: ant_path_matcher
+
+
+

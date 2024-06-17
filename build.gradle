@@ -1,0 +1,109 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.0'
+    id 'io.spring.dependency-management' version '1.1.5'
+    id 'com.google.protobuf' version '0.8.17'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'mysql:mysql-connector-java:8.0.26'
+
+    // security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Spring Boot Starter
+    testImplementation ('org.springframework.boot:spring-boot-starter-test')
+
+    // Lombok
+    implementation ('org.projectlombok:lombok')
+    compileOnly ('org.projectlombok:lombok:1.18.24')
+    annotationProcessor ('org.projectlombok:lombok:1.18.24')
+
+    // DB
+    runtimeOnly ('com.mysql:mysql-connector-j') //mysql8
+    //runtimeOnly 'mysql:mysql-connector-java:5.1.47' //mysql5
+    implementation ('org.springframework.boot:spring-boot-starter-jdbc')
+    implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
+
+
+    // Web
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter')
+
+    // Validation
+    implementation('org.springframework.boot:spring-boot-starter-validation')
+
+    // jwt
+//    implementation(group: 'io.jsonwebtoken', name: 'jjwt', version: '0.11.5')
+//    implementation('io.jsonwebtoken:jjwt:0.9.1')
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+    // parse claim
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+    // Swagger
+    implementation ('org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2')
+    implementation "me.paulschwarz:spring-dotenv:3.0.0"
+
+    //grpc
+    implementation 'io.grpc:grpc-netty-shaded:1.40.1'
+    implementation 'io.grpc:grpc-protobuf:1.40.1'
+    implementation 'io.grpc:grpc-stub:1.40.1'
+    implementation 'com.google.protobuf:protobuf-java:3.17.3'
+    testImplementation 'junit:junit:4.13.2'
+
+    //mysql connector
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+
+}
+
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.17.3'
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.40.1'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/main/java', 'build/generated/source/proto/main/java', 'build/generated/source/proto/main/grpc'
+        }
+        proto {
+            srcDir 'src/main/proto'
+        }
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
